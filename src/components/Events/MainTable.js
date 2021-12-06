@@ -5,13 +5,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import * as eventActions from "../../redux/actions/eventActions";
-
+import { Link } from "react-router-dom"
 
 class MainTable extends Component {
 
     componentDidMount() {
         this.props.actions.getEvents()
     }
+
 
     render() {
         return (
@@ -29,12 +30,12 @@ class MainTable extends Component {
                     </thead>
                     <tbody class="body">
                         {this.props.events._embedded.events.map(event => (
-                            <tr>
+                            <tr key={event.id}>
                                 <td>{event.name}</td>
                                 <td>{event.dates.start.localDate}/ {event.dates.start.localTime}</td>
                                 <td>{event.dates.timezone}</td>
                                 <td class="color">{event.dates.status.code}</td>
-                                <td class="text-center"><button class="btn detailBtn">Detail</button></td>
+                                <td> <Link class="btn detailBtn" to={{ pathname: "eventDetails" }}>Detail</Link></td>
                             </tr>
                         ))}
                     </tbody>
